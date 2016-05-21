@@ -110,20 +110,42 @@ static NSString *_lastMessage = nil;
 
 + (void)showCantSwitchToIntegratedOnlyMessage:(NSArray *)taskList
 {
-    NSString *messageKey = [NSString stringWithFormat:@"Can'tSwitchToIntegratedOnly%@", (taskList.count > 1 ? @"Plural" : @"Singular")];
-
-    NSMutableString *descriptionText = [[NSMutableString alloc] init];
+    // Get the localized notification name and message, as well as the current
+    // GPU name for display in the message.
+    NSString *title = [NSString stringWithFormat:@"GPU switch prevented by:"];
+    NSMutableString *message = [[NSMutableString alloc] init];
     for (NSString *taskName in taskList)
-        [descriptionText appendFormat:@"%@\n", taskName];
-
-    NSAlert *alert = [NSAlert alertWithMessageText:Str(messageKey)
-                                     defaultButton:@"OK"
-                                   alternateButton:@"Why?"
-                                       otherButton:nil
-                         informativeTextWithFormat:@"%@", descriptionText];
-
-    if ([alert runModal] == NSAlertAlternateReturn)
-        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kIntegratedOnlyMessageExplanationURL]];
+        [message appendFormat:@"%@\n", taskName];
+    
+    // Make sure that we don't display the notification if it's the same message
+    // as the last one we fired off. Because that's unbelievably annoying. Also
+    // check to make sure the user even wants to see the notifications in the
+    // first place.
+    if (![message isEqualToString:_lastMessage] && [self notificationCenterIsAvailable]) {
+        NSUserNotification *notification = [[NSUserNotification alloc] init];
+        notification.deliveryDate = [NSDate date];
+        notification.hasActionButton = NO;
+        notification.title = title;
+        notification.informativeText = message;
+        [[NSUserNotificationCenter defaultUserNotificationCenter] scheduleNotification:notification];
+    } else if (![message isEqualToString:_lastMessage]) {
+        [GrowlApplicationBridge notifyWithTitle:title
+                                    description:message
+                               notificationName:title
+                                       iconData:nil
+                                        priority:0
+                                        isSticky:NO
+                                    clickContext:nil];
+    }
+        
+    _lastMessage = message;
+    
+    // We need to clear the message out after a couple of seconds to allow it to display again if the user picks the integrated only option later on
+    double delayInSeconds = 2.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        _lastMessage = Str(@"");
+    });
 }
 
 + (BOOL)notificationCenterIsAvailable

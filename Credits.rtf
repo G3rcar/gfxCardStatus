@@ -14,6 +14,8 @@ Changes from the original gfxCardStatus:\
 \ls1\ilvl0\cf0 {\listtext	\'95	}Removed Sparkle framework due the software being customised.\
 {\listtext	\'95	}Removed 'Cody Krieger' self-promotion notices from UI.\
 {\listtext	\'95	}Worked around the issue where you would select integrated, and it would switch to dynamic. The code is based on pajp's sticky-mode patch.\
+{\listtext	\'95	}Set mode to integrated only on startup unless connected to an external display, then it will set the mode to dynamic switching.\
+{\listtext	\'95	}When processes are preventing the switch to integrated only, it shows a notification rather than an error dialog.\
 \pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
 \cf0 \
 GPU switching originally made possible by code from ah of the MacRumors Forums.\

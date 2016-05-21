@@ -44,9 +44,32 @@
         GTMLoggerInfo(@"Integrated GPU name: %@", [GSGPU integratedGPUName]);
         GTMLoggerInfo(@"Discrete GPU name: %@", [GSGPU discreteGPUName]);
         
-        if (![GSGPU isLegacyMachine]) {
-            // Set the machine to integrated graphics by default
-            [menuController setMode:menuController.integratedOnly];
+        // Determine if there are external displays connected
+        CGDirectDisplayID activeDisplays[10];
+        uint32_t numberOfDisplays;
+        boolean_t hasExternalDisplay = false;
+        if (CGGetActiveDisplayList (10, activeDisplays, &numberOfDisplays ) == 0)
+        {
+            for (int i = 0; i < numberOfDisplays; i++)
+            {
+                if (!CGDisplayIsBuiltin(activeDisplays[i]))
+                {
+                    hasExternalDisplay = true;
+                    break;
+                }
+            }
+        }
+        
+        // If there is no external display, switch to integrated only, otherwise, use dynamic
+        if (![GSGPU isLegacyMachine])
+        {
+            if (hasExternalDisplay)
+            {
+                [menuController setMode:menuController.dynamicSwitching];
+            } else
+            {
+                [menuController setMode:menuController.integratedOnly];
+            }
         }
     }
 
