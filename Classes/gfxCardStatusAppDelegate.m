@@ -52,9 +52,10 @@
         } else if ([args indexOfObject:@"--dynamic"] != NSNotFound) {
             [GSMux setMode:GSSwitcherModeDynamicSwitching];
         } else if (![GSGPU isLegacyMachine]) {
-            // Set the machine to dynamic switching to get it out of any kind of
-            // weird state from the get go.
-            [GSMux setMode:GSSwitcherModeDynamicSwitching];
+            // Set the machine to integrated only on startup. The default was
+            //  dynamic switching, but generally I only need integrated graphics
+            //  and will set it to dynamic myself if I need it.
+            [GSMux setMode:GSSwitcherModeForceIntegrated];
         }
     }
 
