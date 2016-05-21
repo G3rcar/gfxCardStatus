@@ -36,16 +36,6 @@
 	<string>NSApplication</string>
 	<key>NSServices</key>
 	<array/>
-	<key>SUFeedURL</key>
-	<string>https://gfx.io/appcast.xml</string>
-	<key>SUPublicDSAKeyFile</key>
-	<string>dsa_pub.pem</string>
-	<key>SUShowReleaseNotes</key>
-	<true/>
-	<key>SUEnableAutomaticChecks</key>
-	<true/>
-	<key>SUEnableSystemProfiling</key>
-	<true/>
 	<key>UTExportedTypeDeclarations</key>
 	<array/>
 	<key>UTImportedTypeDeclarations</key>

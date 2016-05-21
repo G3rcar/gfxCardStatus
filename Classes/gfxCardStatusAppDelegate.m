@@ -22,7 +22,6 @@
 
 @implementation gfxCardStatusAppDelegate
 
-@synthesize updater;
 @synthesize menuController;
 
 #pragma mark - Initialization
@@ -86,19 +85,6 @@
     // If we're not on 10.8+, fall back to Growl for notifications.
     if (![GSNotifier notificationCenterIsAvailable])
         [GrowlApplicationBridge setGrowlDelegate:[GSNotifier sharedInstance]];
-
-    // Hook up the check for updates on startup preference directly to the
-    // automaticallyChecksForUpdates property on the SUUpdater.
-    updater.automaticallyChecksForUpdates = _prefs.shouldCheckForUpdatesOnStartup;
-
-    [[_prefs rac_signalForKeyPath:kShouldCheckForUpdatesOnStartupKeyPath observer:self] subscribeNext:^(id x) {
-        GTMLoggerDebug(@"Check for updates on startup value changed: %@", x);
-        updater.automaticallyChecksForUpdates = [x boolValue];
-    }];
-
-    // Check for updates if the user has them enabled.
-    if ([_prefs shouldCheckForUpdatesOnStartup])
-        [updater checkForUpdatesInBackground];
 }
 
 #pragma mark - Termination Notifications

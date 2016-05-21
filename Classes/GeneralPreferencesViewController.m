@@ -24,7 +24,6 @@
 @implementation GeneralPreferencesViewController
 
 @synthesize prefChkSmartIcons;
-@synthesize prefChkUpdate;
 @synthesize prefChkStartup;
 @synthesize prefChkGrowl;
 @synthesize prefs;
@@ -55,7 +54,7 @@
         [GSStartup loadAtStartup:[x boolValue]];
     }];
     
-    NSArray *localizedButtons = [[NSArray alloc] initWithObjects:prefChkStartup, prefChkUpdate, prefChkSmartIcons, prefChkGrowl, nil];
+    NSArray *localizedButtons = [[NSArray alloc] initWithObjects:prefChkStartup, prefChkSmartIcons, prefChkGrowl, nil];
     for (NSButton *loc in localizedButtons)
         [loc setTitle:Str([loc title])];
 

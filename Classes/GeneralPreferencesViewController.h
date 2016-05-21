@@ -14,7 +14,6 @@
 
 @property (strong) IBOutlet NSButton *prefChkSmartIcons; // use first letter of GPU to determine icon
 
-@property (strong) IBOutlet NSButton *prefChkUpdate;  // check for updates on startup
 @property (strong) IBOutlet NSButton *prefChkStartup; // start at login
 @property (strong) IBOutlet NSButton *prefChkGrowl;   // display gpu change notifications
 
