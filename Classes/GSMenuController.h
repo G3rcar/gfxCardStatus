@@ -9,6 +9,12 @@
 #import "PreferencesWindowController.h"
 #import "GSPreferences.h"
 
+
+#define MODE_INTEGRATED_ONLY 1
+#define MODE_DISCRETE_ONLY 2
+#define MODE_DYNAMIC 3
+#define MODE_SWITCH 4
+
 @protocol GSMenuControllerDelegate <NSObject>
 - (void)something;
 @end
@@ -53,5 +59,6 @@
 - (IBAction)quit:(id)sender;
 
 - (IBAction)setMode:(id)sender;
+- (IBAction)setModeInt:(int)mode;
 
 @end

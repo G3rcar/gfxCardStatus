@@ -44,18 +44,9 @@
         GTMLoggerInfo(@"Integrated GPU name: %@", [GSGPU integratedGPUName]);
         GTMLoggerInfo(@"Discrete GPU name: %@", [GSGPU discreteGPUName]);
         
-        NSArray *args = [[NSProcessInfo processInfo] arguments];
-        if ([args indexOfObject:@"--discrete"] != NSNotFound) {
-            [GSMux setMode:GSSwitcherModeForceDiscrete];
-        } else if ([args indexOfObject:@"--integrated"] != NSNotFound) {
-            [GSMux setMode:GSSwitcherModeForceIntegrated];
-        } else if ([args indexOfObject:@"--dynamic"] != NSNotFound) {
+        if (![GSGPU isLegacyMachine]) {
+            // Set the machine to dynamic switching by default
             [GSMux setMode:GSSwitcherModeDynamicSwitching];
-        } else if (![GSGPU isLegacyMachine]) {
-            // Set the machine to integrated only on startup. The default was
-            //  dynamic switching, but generally I only need integrated graphics
-            //  and will set it to dynamic myself if I need it.
-            [GSMux setMode:GSSwitcherModeForceIntegrated];
         }
     }
 
@@ -92,8 +83,9 @@
 {
     // Set the machine to dynamic switching before shutdown to avoid machine restarting
     // stuck in a forced GPU mode.
-    if (![GSGPU isLegacyMachine])
+    if (![GSGPU isLegacyMachine]) {
         [GSMux setMode:GSSwitcherModeDynamicSwitching];
+    }
 
     GTMLoggerDebug(@"Termination notification received. Going to Dynamic Switching.");
 }
@@ -111,6 +103,12 @@
 
 - (void)GPUDidChangeTo:(GSGPUType)gpu
 {
+    /*int savedMode = self.savedMode;
+    if (((savedMode == MODE_INTEGRATED_ONLY) && (gpu != GSGPUTypeIntegrated)) ||
+        ((savedMode == MODE_DISCRETE_ONLY) && (gpu != GSGPUTypeDiscrete))) {
+        GTMLoggerDebug(@"GPU changed to something that I don't want, attempting reset...");
+        [self setModeToSavedMode];
+    }*/
     [menuController updateMenu];
     [GSNotifier showGPUChangeNotification:gpu];
 }
