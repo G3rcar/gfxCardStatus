@@ -45,8 +45,8 @@
         GTMLoggerInfo(@"Discrete GPU name: %@", [GSGPU discreteGPUName]);
         
         if (![GSGPU isLegacyMachine]) {
-            // Set the machine to dynamic switching by default
-            [GSMux setMode:GSSwitcherModeDynamicSwitching];
+            // Set the machine to integrated graphics by default
+            [menuController setMode:menuController.integratedOnly];
         }
     }
 

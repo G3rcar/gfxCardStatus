@@ -178,6 +178,43 @@
     [[NSApplication sharedApplication] terminate:self];
 }
 
+- (IBAction)setMode:(id)sender
+{
+    int modeToSet = -1;
+    
+    if (sender == switchGPUs) {
+        modeToSet = MODE_SWITCH;
+        [self setModeInt:modeToSet];
+        return;
+    }
+    
+    // Don't go any further if the user clicked on an already-selected item.
+    if ([sender state] == NSOnState) return;
+    
+    if (sender == integratedOnly) {
+        modeToSet = MODE_INTEGRATED_ONLY;
+    }
+    
+    if (sender == discreteOnly) {
+        modeToSet = MODE_DISCRETE_ONLY;
+    }
+    
+    if (sender == dynamicSwitching) {
+        modeToSet = MODE_DYNAMIC;
+    }
+    
+    [self setModeInt:modeToSet];
+    
+    // Hack to set the mode a second time after a short delay to fix retina switching issue
+    if (modeToSet == MODE_INTEGRATED_ONLY) {
+        double delayInSeconds = 1.0;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            [self setModeInt:modeToSet];
+        });
+    }
+}
+
 - (void)setModeInt:(int)selectedMode
 {
 
@@ -232,42 +269,6 @@
         GTMLoggerDebug(@"Failed to switch to mode %d", modeToSet);
     }
 }
-
-- (IBAction)setMode:(id)sender
-{
-    int modeToSet = -1;
-    
-    if (sender == switchGPUs) {
-        modeToSet = MODE_SWITCH;
-    }
-
-    // Don't go any further if the user clicked on an already-selected item.
-    if ([sender state] == NSOnState) return;
-
-    if (sender == integratedOnly) {
-        modeToSet = MODE_INTEGRATED_ONLY;
-    }
-    
-    if (sender == discreteOnly) {
-        modeToSet = MODE_DISCRETE_ONLY;
-    }
-
-    if (sender == dynamicSwitching) {
-        modeToSet = MODE_DYNAMIC;
-    }
-    
-    [self setModeInt:modeToSet];
-    
-    // Hack to attempt the set the mode a second time to fix retina switching issue
-    if (modeToSet == MODE_INTEGRATED_ONLY) {
-        double delayInSeconds = 1;
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            [self setModeInt:modeToSet];
-        });
-    }
-}
-
 
 #pragma mark - NSMenuDelegate protocol
 
