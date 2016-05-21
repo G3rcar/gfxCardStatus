@@ -14,9 +14,9 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="1">
-            <rect key="frame" x="0.0" y="0.0" width="440" height="130"/>
+            <rect key="frame" x="0.0" y="0.0" width="440" height="94"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <button focusRingType="none" id="4">
@@ -30,19 +30,8 @@
                         <binding destination="23" name="value" keyPath="selection.shouldStartAtLogin" id="31"/>
                     </connections>
                 </button>
-                <button focusRingType="none" id="44">
-                    <rect key="frame" x="18" y="18" width="404" height="18"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <buttonCell key="cell" type="check" title="PrefGrowl" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" focusRingType="none" inset="2" id="45">
-                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                        <font key="font" metaFont="system"/>
-                    </buttonCell>
-                    <connections>
-                        <binding destination="23" name="value" keyPath="selection.shouldGrowl" id="47"/>
-                    </connections>
-                </button>
                 <button focusRingType="none" id="35">
-                    <rect key="frame" x="18" y="94" width="404" height="18"/>
+                    <rect key="frame" x="18" y="58" width="404" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <buttonCell key="cell" type="check" title="SmartMenuBarIcons" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" focusRingType="none" inset="2" id="36">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -57,7 +46,19 @@
                         <binding destination="23" name="value" keyPath="selection.shouldUseSmartMenuBarIcons" id="38"/>
                     </connections>
                 </button>
+                <button focusRingType="none" id="44">
+                    <rect key="frame" x="18" y="18" width="404" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <buttonCell key="cell" type="check" title="PrefGrowl" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" focusRingType="none" inset="2" id="45">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <binding destination="23" name="value" keyPath="selection.shouldGrowl" id="47"/>
+                    </connections>
+                </button>
             </subviews>
+            <point key="canvasLocation" x="455" y="315"/>
         </customView>
         <objectController id="23">
             <connections>

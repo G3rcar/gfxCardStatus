@@ -35,10 +35,8 @@
 @synthesize statusMenu;
 
 @synthesize versionItem;
-@synthesize updateItem;
 @synthesize preferencesItem;
 @synthesize quitItem;
-@synthesize visitWebsiteItem;
 @synthesize currentCard;
 @synthesize currentPowerSource;
 @synthesize switchGPUs;
@@ -254,10 +252,8 @@
 
 - (void)_localizeMenu
 {
-    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-    [versionItem setTitle:[Str(@"About") stringByReplacingOccurrencesOfString:@"%%" withString:version]];
-    [visitWebsiteItem setTitle:[Str(visitWebsiteItem.title) stringByReplacingOccurrencesOfString:@"%%" withString:kApplicationWebsiteURL]];
-    NSArray *localized = [NSArray arrayWithObjects:updateItem, preferencesItem,
+    [versionItem setTitle:[Str(@"About") substringFromIndex:0 ]];
+    NSArray *localized = [NSArray arrayWithObjects:preferencesItem,
                           quitItem, switchGPUs, integratedOnly, discreteOnly, 
                           dynamicSwitching, dependentProcesses, processList, 
                           nil];

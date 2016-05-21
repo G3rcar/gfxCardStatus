@@ -18,8 +18,6 @@
 
 #define kHasSeenOneTimeNotificationKey @"hasSeenVersionTwoMessage"
 
-#define kShouldCheckForUpdatesOnStartupKeyPath @"prefsDict.shouldCheckForUpdatesOnStartup"
-
 @implementation gfxCardStatusAppDelegate
 
 @synthesize menuController;

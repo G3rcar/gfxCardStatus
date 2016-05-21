@@ -7,8 +7,7 @@
  */
 
 /* Main menu */
-"About"					= "About gfxCardStatus, v%%";
-"Update"				= "Check for Updates...";
+"About"					= "About gfxCardStatus";
 "Preferences"			= "Preferences...";
 "Card"					= "GPU: %%";
 "SwitchGPUs"			= "Switch GPUs";
@@ -22,7 +21,6 @@
 "PowerSource"           = "Power Source: %%";
 "Battery"               = "Battery";
 "ACAdapter"             = "AC Adapter";
-"VisitWebsite"          = "Visit website (%%)...";
 
 /* Preferences window */
 "PrefTitle"				= "gfxCardStatus Preferences";
