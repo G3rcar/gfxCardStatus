@@ -43,27 +43,11 @@
         GTMLoggerInfo(@"GPUs present: %@", [GSGPU getGPUNames]);
         GTMLoggerInfo(@"Integrated GPU name: %@", [GSGPU integratedGPUName]);
         GTMLoggerInfo(@"Discrete GPU name: %@", [GSGPU discreteGPUName]);
-        
-        // Determine if there are external displays connected
-        CGDirectDisplayID activeDisplays[10];
-        uint32_t numberOfDisplays;
-        boolean_t hasExternalDisplay = false;
-        if (CGGetActiveDisplayList (10, activeDisplays, &numberOfDisplays ) == 0)
-        {
-            for (int i = 0; i < numberOfDisplays; i++)
-            {
-                if (!CGDisplayIsBuiltin(activeDisplays[i]))
-                {
-                    hasExternalDisplay = true;
-                    break;
-                }
-            }
-        }
-        
-        // If there is no external display, switch to integrated only, otherwise, use dynamic
+
         if (![GSGPU isLegacyMachine])
         {
-            if (hasExternalDisplay)
+            // If there is no external display, switch to integrated only, otherwise, use dynamic
+            if ([self hasExternalDisplay])
             {
                 [menuController setMode:menuController.dynamicSwitching];
             } else
@@ -98,6 +82,24 @@
     // If we're not on 10.8+, fall back to Growl for notifications.
     if (![GSNotifier notificationCenterIsAvailable])
         [GrowlApplicationBridge setGrowlDelegate:[GSNotifier sharedInstance]];
+}
+
+- (boolean_t)hasExternalDisplay
+{
+    // Determine if there are external displays connected
+    CGDirectDisplayID displays[2];
+    uint32_t numberOfDisplays;
+    
+    if (CGGetActiveDisplayList (2, displays, &numberOfDisplays ) == 0)
+    {
+        
+        if (numberOfDisplays > 1 || (numberOfDisplays == 1 && !CGDisplayIsBuiltin(displays[0])))
+        {
+            return true;
+        }
+    }
+    
+    return false;
 }
 
 #pragma mark - Termination Notifications
