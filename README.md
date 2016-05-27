@@ -1,28 +1,16 @@
-# gfxCardStatus
-by Cody Krieger
+# gfxCardStatus Enhanced
+originally by Cody Krieger
 
 gfxCardStatus is an open-source menu bar application for OS X that allows users
 of dual GPU MacBook Pros to monitor the status of, and switch between said GPUs.
 
-## Building from source
-
-In order to successfully build gfxCardStatus, you've got to have its submodules
-(namely ReactiveCocoa) cheked out.
-
-Either:
-
-```
-git clone --recursive git://github.com/codykrieger/gfxCardStatus.git
-```
-
-Or, if you've already got the repo cloned:
-
-```
-cd /path/to/gfxCardStatus
-git submodule update --init --recursive
-```
-
-Then just open up the Xcode project, build it, and you're ready to go.
+This version of gfxCardStatus has been modified from the original and contains
+several new and altered features. Some of the major differences are listed below:
+* Removed Sparkle framework due the software being customised.
+* Removed 'Cody Krieger' self-promotion notices from UI.
+* Worked around the issue where you would select integrated, and it would switch to dynamic. The code is based on pajp's sticky-mode patch.
+* Set mode to integrated only on startup unless connected to an external display, then it will set the mode to dynamic switching.
+* When processes are preventing the switch to integrated only, it shows a notification rather than an error dialog.
 
 ## License
 
