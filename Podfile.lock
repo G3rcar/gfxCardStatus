@@ -22,8 +22,10 @@ DEPENDENCIES:
   - ReactiveCocoa (~> 1.x)
 
 SPEC CHECKSUMS:
-  JRSwizzle: 30da7a2c539a4ebf954b16d15f6dd8221c9f6fa5
-  libextobjc: f1b1ea2e42fbfe7ae5d4f8624bbb4f56002e8536
-  ReactiveCocoa: 4b785d2ee8f8687572422144bd01ce2e933ed493
+  JRSwizzle: dd5ead5d913a0f29e7f558200165849f006bb1e3
+  libextobjc: 34cd4e77070160a3fa910db193e1e194e8591aa2
+  ReactiveCocoa: ab87c0e6431ce99a3b5a0b2e523f8c5c3b5a1f0e
 
-COCOAPODS: 0.35.0
+PODFILE CHECKSUM: 9f520adc6054017ac8b08ab2cda048af22c3c97b
+
+COCOAPODS: 1.0.1
